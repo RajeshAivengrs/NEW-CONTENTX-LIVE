@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: content-x-ai-studio
+    env: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: python simple_main.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: GOOGLE_CLIENT_ID
+        value: 380396473123-qcdr7697unq06lsoe1su9d8vitjr6uk9.apps.googleusercontent.com
+      - key: GOOGLE_CLIENT_SECRET
+        value: your_google_secret
+      - key: RAZORPAY_KEY_ID
+        value: rzp_live_your_key_id
+      - key: RAZORPAY_KEY_SECRET
+        value: your_razorpay_secret
+      - key: OPENAI_API_KEY
+        value: your_openai_key
+      - key: ELEVENLABS_API_KEY
+        value: your_elevenlabs_key
+      - key: JWT_SECRET
+        value: contentx_production_jwt_secret_key_2024
+      - key: DATABASE_URL
+        value: postgresql://user:pass@host:port/dbname
+      - key: REDIS_URL
+        value: redis://user:pass@host:port
