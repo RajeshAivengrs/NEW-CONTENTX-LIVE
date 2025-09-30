@@ -1,0 +1,25 @@
+Category,Tool/Service,Purpose,Key Files/Location,Key Endpoints/Routes,Env Vars,Notes
+Backend,"FastAPI, Uvicorn","HTTP API, server",simple_main.py,"/ , /health , /api/**",-,ASGI server
+Templating & I/O,"Jinja2, aiofiles","HTML rendering, file I/O",simple_main.py,/,-,Server-rendered pages
+Config,python-dotenv,Load env vars,simple_main.py,-,All below,Uses .env locally
+OAuth,Google OAuth,Social login,"auth_backend.py, simple_main.py","/api/auth/google, /auth/callback, /api/auth/user","GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, JWT_SECRET",PKCE/state
+JWT,python-jose,Issue/verify JWT,auth_backend.py,secured /api/**,JWT_SECRET,HS256
+Passwords,passlib[bcrypt],Hash/verify,auth_backend.py,"/api/auth/register, /api/auth/login",-,For email/password
+Payments,Razorpay SDK,Payments/subscriptions,"razorpay_backend.py, simple_main.py",/api/payment/**,"RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET",INR
+Database,PostgreSQL,Persistent storage,"simple_database_backend.py, init.sql",various,DATABASE_URL,"Users, jobs, plans"
+Cache/Queue,Redis,"Caching, queues",simple_main.py (integration),status/job APIs,REDIS_URL,Broker for Celery
+Tasks,Celery,Background jobs,"simple_main.py, content/publishing backends","/api/*/generate, /api/*/status",REDIS_URL,Async processing
+LLM,OpenAI SDK,Script generation,real_content_backend.py,/api/content/generate,OPENAI_API_KEY,Model configurable
+TTS/Voice,"ElevenLabs, gTTS, pyttsx3, librosa, pydub, soundfile",Voice gen & cloning,voice_backend.py,/api/voice/**,ELEVENLABS_API_KEY,Multiple providers
+CV/Avatars,"opencv-headless, MediaPipe, dlib, face-recognition, insightface, onnx, onnxruntime","Face/landmarks, avatars",real_content_backend.py,/api/content/avatar/**,-,CPU builds
+Diffusion,"diffusers, controlnet-aux, torch, accelerate, xformers",Gen video/image,real_content_backend.py,/api/content/video/**,-,Heavy; Standard plan
+A/V Editing,"moviepy, ffmpeg-python, FFmpeg, Pillow","Composition, muxing",real_content_backend.py,"/api/content/video/render, /api/content/assets/**",-,FFmpeg at OS
+Data/ML utils,"pandas, numpy, scikit-learn",Features/metrics,simple_main.py,/api/analytics/**,-,Dashboards
+Charts/UI analytics,"matplotlib, seaborn, plotly, Dash, dbc",Visual analytics,simple_main.py,"/dashboard, /api/analytics/**",-,Embedded charts
+Publishing,Instagram/Facebook/LinkedIn/Twitter/TikTok APIs,Schedule/publish,publishing_backend.py,/api/publish/**,Provider keys,Some simulated until keys
+Frontend,HTML/CSS/JS via FastAPI,Pages & flows,simple_main.py,"/, /features, /pricing, /icp-builder, /dashboard, /auth/google",-,Premium aqua theme
+Metrics,"prometheus-client, grafana-api",Metrics/alerts,"simple_main.py, ops/*",/metrics,-,Optional Grafana
+Logging,logging,Audit & debug,simple_main.py,-,-,INFO default
+Deploy,"Dockerfile, Procfile, Render",Build/run on Render,render-deploy/*,Build/Start cmds,PYTHON_VERSION(optional),CPU-friendly pins
+Security (optional),Snyk,Dependency scanning,-,snyk test/monitor,SNYK_TOKEN,Optional
+Env Vars,Secrets,Config,.env / Render env,-,"GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET, OPENAI_API_KEY, ELEVENLABS_API_KEY, JWT_SECRET, DATABASE_URL, REDIS_URL",Set in Render
